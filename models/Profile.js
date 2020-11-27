@@ -16,11 +16,11 @@ const ProfileSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    required: true,
+    required: false,
   },
   skills: {
     type: [String],
-    required: true,
+    required: false,
   },
   bio: {
     type: String,
@@ -32,18 +32,15 @@ const ProfileSchema = new mongoose.Schema({
     {
       title: {
         type: String,
-        required: true,
       },
       company: {
         type: String,
-        required: true,
       },
       location: {
         type: String,
       },
       from: {
         type: Date,
-        required: true,
       },
       to: {
         type: Date,
@@ -61,19 +58,15 @@ const ProfileSchema = new mongoose.Schema({
     {
       school: {
         type: String,
-        required: true,
       },
       degree: {
         type: String,
-        required: true,
       },
       fieldofstudy: {
         type: String,
-        required: true,
       },
       from: {
         type: Date,
-        required: true,
       },
       to: {
         type: Date,
@@ -104,6 +97,14 @@ const ProfileSchema = new mongoose.Schema({
       type: String,
     },
   },
+  followers: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,

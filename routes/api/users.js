@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 const User = require("../../models/User");
+const Profile = require("../../models/Profile")
 
 //@route    POST api/user
 //@desc     Register User
@@ -57,6 +58,32 @@ router.post(
       user.password = await bcrypt.hash(password, salt);
 
       await user.save();
+
+      //Create Profile
+      // const {
+      //   bio,
+      //   followers,
+      //   instagram,
+      //   facebook
+      // }
+
+      const bio = null
+      const followers = 0
+      const instagram = null
+      const facebook = null
+
+      const profileFields = {};
+      profileFields.user = user.id;
+      if (bio) profileFields.bio = bio;
+      if (followers) profileFields.followers = followers
+
+      profileFields.social = {};
+      if (facebook) profileFields.social.facebook = facebook;
+      if (instagram) profileFields.social.instagram = instagram;
+
+      let profile = new Profile(profileFields);
+      await profile.save();
+
 
       // Return jsonwebtoken
       const payload = {
